@@ -69,7 +69,7 @@ require_once "connect.php";
 $polaczenie=@new mysqli($host, $db_user, $db_password, $db_name);
 $id_osoby=$_SESSION['id'];
 
-$resultat=@$polaczenie->query("SELECT count(*) AS ile FROM rezerwacje WHERE id_osoba=$id_osoby AND id_status IN (7,8)");
+$resultat=@$polaczenie->query("SELECT count(*) AS ile FROM rezerwacje WHERE id_osoba=$id_osoby AND id_status='8'");
 while($data2=$resultat->fetch_assoc())
 {
 	$ile=$data2['ile'];
@@ -85,9 +85,9 @@ for($i = 0 ; $i < count($_SESSION['ISBN']) ; $i++)
 		}
 }
 
-$ile=$_SESSION['ile'];
+$_SESSION['ile']=$ile;
 
-if($ile <= 3)
+if($_SESSION['ile'] < 3)
 {
 	if ($sql->num_rows > 0)
 	{

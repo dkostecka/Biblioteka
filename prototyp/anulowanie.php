@@ -92,7 +92,7 @@ form{
 		 {
 			 $rezerwacja=$_SESSION['rezerwacje_niepotwierdzone'][$i];
 			 $_SESSION['niepotwierdzona']=$rezerwacja;
-			 if($_SESSION['ile'] <= 3)
+			 if($_SESSION['ile'] < 3)
 			 {
 				 echo "<div class='myDiv3'>";
 		 		 echo "Czy chcesz potwierdzić rezerwacje?".'</br>';
