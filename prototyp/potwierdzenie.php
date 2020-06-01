@@ -90,7 +90,10 @@ $_SESSION['id_rezerwacji']=$lastID;
 $sql3=@$polaczenie->query("UPDATE egzemplarze SET statusy_id = 3 WHERE id = $id_egzemplarza");
 
 //$sql4=@$polaczenie->query("UPDATE rezerwacje SET id_status = 8 WHERE id_egzemplarza = $id_egzemplarza AND id=$id_rezerwacji");
-echo "<p>Udało się dokonać rezerwacji</p>";
+
+$today = date("d.m.y");
+$odbior = date('d.m.y', strtotime('+3 days'));
+echo "<p>Udało się dokonać rezerwacji. Czas na odbiór pozycji do ".$odbior."</p>";
 header( "Refresh:3; url=http://localhost:8080/biblioteka/wyszukiwanie.php", true, 303);
  ?>
 

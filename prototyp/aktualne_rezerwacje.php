@@ -13,7 +13,7 @@
 		$polaczenie=@new mysqli($host, $db_user, $db_password, $db_name);
 
 		$id=$_SESSION['id'];
-		$sql  = @$polaczenie->query("SELECT rezerwacje.id as id_rezerwacji, id_osoba, data_rezerwacji, nazwa, tytul, CONCAT(imie,' ', nazwisko) as autor FROM rezerwacje JOIN statusy ON rezerwacje.id_status=statusy.id JOIN egzemplarze ON rezerwacje.id_egzemplarza=egzemplarze.id JOIN pozycje ON egzemplarze.pozycja_id=pozycje.ISBN JOIN pozycje_autorzy ON pozycje.ISBN=pozycje_autorzy.ISBN JOIN autorzy ON pozycje_autorzy.autor=autorzy.id WHERE id_osoba='$id' ORDER BY data_rezerwacji DESC");
+		$sql  = @$polaczenie->query("SELECT rezerwacje.id as id_rezerwacji, id_osoba, data_rezerwacji, data_odbioru, nazwa, tytul, CONCAT(imie,' ', nazwisko) as autor FROM rezerwacje JOIN statusy ON rezerwacje.id_status=statusy.id JOIN egzemplarze ON rezerwacje.id_egzemplarza=egzemplarze.id JOIN pozycje ON egzemplarze.pozycja_id=pozycje.ISBN JOIN pozycje_autorzy ON pozycje.ISBN=pozycje_autorzy.ISBN JOIN autorzy ON pozycje_autorzy.autor=autorzy.id WHERE id_osoba='$id' ORDER BY data_rezerwacji DESC");
 
 ?>
 
@@ -91,6 +91,7 @@ h1{
     <th>Autor</th>
     <th>Tytuł</th>
     <th>Data rezerwacji</th>
+		<th>Max. data odbioru</th>
 		<th>Status</th>
   </tr>
 	<?php
@@ -103,18 +104,18 @@ h1{
 			if($data['nazwa']=='potwierdzony')
 			{
 				array_push($_SESSION['rezerwacje_potwierdzone'], $data['id_rezerwacji']);
-				echo "<tr><td>".$data['autor']."</td><td>".$data['tytul']."</td><td>".$data['data_rezerwacji']."</td><td>".$data['nazwa']."</td><td>".'<form method="post" action="anulowanie.php"><input type="submit" name="'.$data['id_rezerwacji'].'" value="anuluj"></form>'."</td></tr>";
+				echo "<tr><td>".$data['autor']."</td><td>".$data['tytul']."</td><td>".$data['data_rezerwacji']."</td><td>".$data['data_odbioru']."</td><td>".$data['nazwa']."</td><td>".'<form method="post" action="anulowanie.php"><input type="submit" name="'.$data['id_rezerwacji'].'" value="anuluj"></form>'."</td></tr>";
 				continue;
 			}
 			if($data['nazwa']=='niepotwierdzony')
 			{
 				array_push($_SESSION['rezerwacje_niepotwierdzone'], $data['id_rezerwacji']);
-				echo "<tr><td>".$data['autor']."</td><td>".$data['tytul']."</td><td>".$data['data_rezerwacji']."</td><td>".$data['nazwa']."</td><td>".'<form method="post" action="anulowanie.php"><input type="submit" name="'.$data['id_rezerwacji'].'" value="potwierdź"></form>'."</td></tr>";
+				echo "<tr><td>".$data['autor']."</td><td>".$data['tytul']."</td><td>".$data['data_rezerwacji']."</td><td>".$data['data_odbioru']."</td><td>".$data['nazwa']."</td><td>".'<form method="post" action="anulowanie.php"><input type="submit" name="'.$data['id_rezerwacji'].'" value="potwierdź"></form>'."</td></tr>";
 				continue;
 			}
 			else
 			{
-				echo "<tr><td>".$data['autor']."</td><td>".$data['tytul']."</td><td>".$data['data_rezerwacji']."</td><td>".$data['nazwa']."</td><td></td></tr>";
+				echo "<tr><td>".$data['autor']."</td><td>".$data['tytul']."</td><td>".$data['data_rezerwacji']."</td><td>".$data['data_odbioru']."</td><td>".$data['nazwa']."</td><td></td></tr>";
 			}
 		}
 		echo "</table>";

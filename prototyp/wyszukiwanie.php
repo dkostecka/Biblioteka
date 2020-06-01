@@ -96,7 +96,7 @@ if (isset($_POST['submit']))
 	//////////// nic
 	if($f1 == "" && $f2 == "" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor WHERE tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%'");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor WHERE tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%' ORDER BY 3");
 	}
 	if($f1 == "" && $f2 == "" && strlen($napis) == 0)
 	{
@@ -109,61 +109,61 @@ if (isset($_POST['submit']))
 	}
 	if($f1 == "autor" && $f2 == "" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor WHERE imie LIKE '%$napis%' or nazwisko LIKE '%$napis%'");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor WHERE imie LIKE '%$napis%' or nazwisko LIKE '%$napis%' ORDER BY 3");
 	}
 	///////////// dostepny
 	if($f1 == "dostepny" && $f2 == "" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id WHERE statusy.nazwa='dostepny' GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id WHERE statusy.nazwa='dostepny' GROUP BY 1 ORDER BY 3");
 	}
 	if($f1 == "dostepny" && $f2 == "" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id WHERE statusy.nazwa='dostepny' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id WHERE statusy.nazwa='dostepny' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1 ORDER BY 3");
 	}
 	///////////// fantasy
 	if($f1 == "" && $f2 == "fantasy" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'fantasy'");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'fantasy' ORDER BY 3");
 	}
 	if($f1 == "" && $f2 == "fantasy" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'fantasy' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'fantasy' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	////////// lektury
 	if($f1 == "" && $f2 == "lektury" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'lektury'");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'lektury' ORDER BY 3 ");
 	}
 	if($f1 == "" && $f2 == "lektury" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'lektury' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'lektury' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	///////////// dla dzieci
 	if($f1 == "" && $f2 == "dla dzieci" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'dla dzieci'");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'dla dzieci' ORDER BY 3 ");
 	}
 	if($f1 == "" && $f2 == "dla dzieci" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'dla dzieci' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'dla dzieci' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	////////// kryminał
 	if($f1 == "" && $f2 == "kryminal" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'kryminal'");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'kryminal' ORDER BY 3 ");
 	}
 	if($f1 == "" && $f2 == "kryminal" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'kryminal' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'kryminal' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	////////// powieść
 	if($f1 == "" && $f2 == "powiesc" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'powiesc'");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'powiesc' ORDER BY 3 ");
 	}
 	if($f1 == "" && $f2 == "powiesc" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'powiesc' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'powiesc' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	//////////// autor+fantasy
 	if($f1 == "autor" && $f2 == "fantasy" && strlen($napis) == 0)
@@ -172,7 +172,7 @@ if (isset($_POST['submit']))
 	}
 	if($f1 == "autor" && $f2 == "fantasy" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'fantasy' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'fantasy' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	///////////// autor+lektury
 	if($f1 == "autor" && $f2 == "lektury" && strlen($napis) == 0)
@@ -181,7 +181,7 @@ if (isset($_POST['submit']))
 	}
 	if($f1 == "autor" && $f2 == "lektury" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'lektury' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'lektury' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	//////////// autor+kryminał
 	if($f1 == "autor" && $f2 == "kryminal" && strlen($napis) == 0)
@@ -190,7 +190,7 @@ if (isset($_POST['submit']))
 	}
 	if($f1 == "autor" && $f2 == "kryminal" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'kryminal' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'kryminal' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	///////////// autor+dla dzieci
 	if($f1 == "autor" && $f2 == "dla dzieci" && strlen($napis) == 0)
@@ -199,7 +199,7 @@ if (isset($_POST['submit']))
 	}
 	if($f1 == "autor" && $f2 == "dla dzieci" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'dla dzieci' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'dla dzieci' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	///////////// autor+powieść
 	if($f1 == "autor" && $f2 == "powiesc" && strlen($napis) == 0)
@@ -208,21 +208,21 @@ if (isset($_POST['submit']))
 	}
 	if($f1 == "autor" && $f2 == "powiesc" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'powiesc' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%')");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko, nazwa FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE nazwa = 'powiesc' AND (imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') ORDER BY 3 ");
 	}
 	//////////// dostepny+fantasy
 	if($f1 == "dostepny" && $f2 == "fantasy" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='fantasy' GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='fantasy' GROUP BY 1 ORDER BY 3 ");
 	}
 	if($f1 == "dostepny" && $f2 == "fantasy" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='fantasy' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='fantasy' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1 ORDER BY 3 ");
 	}
 	////////// dostepny+lektury
 	if($f1 == "dostepny" && $f2 == "lektury" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='lektury' GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='lektury' GROUP BY 1 ORDER BY 3 ");
 	}
 	if($f1 == "dostepny" && $f2 == "lektury" && strlen($napis) > 0)
 	{
@@ -231,29 +231,29 @@ if (isset($_POST['submit']))
 	///////// dostepny+kryminał
 	if($f1 == "dostepny" && $f2 == "kryminal" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='kryminal' GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='kryminal' GROUP BY 1 ORDER BY 3 ");
 	}
 	if($f1 == "dostepny" && $f2 == "kryminal" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='kryminal' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='kryminal' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1 ORDER BY 3 ");
 	}
 	/////////// dostepny+powieść
 	if($f1 == "dostepny" && $f2 == "powiesc" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='powiesc' GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='powiesc' GROUP BY 1 ORDER BY 3 ");
 	}
 	if($f1 == "dostepny" && $f2 == "powiesc" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='powiesc' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='powiesc' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1 ORDER BY 3 ");
 	}
 	////////// dostepny+dla dla_dzieci
 	if($f1 == "dostepny" && $f2 == "dla dzieci" && strlen($napis) == 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='dla dzieci' GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='dla dzieci' GROUP BY 1 ORDER BY 3 ");
 	}
 	if($f1 == "dostepny" && $f2 == "dla dzieci" && strlen($napis) > 0)
 	{
-		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='dla dzieci' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1");
+		$sql = @$polaczenie->query("SELECT pozycje.ISBN as ISBN, tytul, imie, nazwisko FROM pozycje JOIN pozycje_autorzy ON pozycje.ISBN = pozycje_autorzy.ISBN JOIN autorzy ON autorzy.id=pozycje_autorzy.autor JOIN egzemplarze ON egzemplarze.pozycja_id=pozycje.ISBN JOIN statusy ON egzemplarze.statusy_id=statusy.id JOIN pozycje_kategorie ON pozycje.ISBN = pozycje_kategorie.ISBN JOIN kategorie ON pozycje_kategorie.kategoria=kategorie.nazwa WHERE statusy.nazwa='dostepny' AND kategorie.nazwa='dla dzieci' AND (tytul LIKE '%$napis%' OR imie LIKE '%$napis%' OR nazwisko LIKE '%$napis%') GROUP BY 1 ORDER BY 3 ");
 	}
 
 	$_SESSION['ISBN']=array();
